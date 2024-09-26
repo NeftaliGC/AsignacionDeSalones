@@ -1,0 +1,71 @@
+html, body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    height: 100%;  /* Asegura que tanto el html como el body ocupen toda la altura */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    background: linear-gradient(to bottom, white 1%, #60866D 2%, white 99%);
+    background-size: 100% 100%; /* Asegura que el degradado cubra toda la superficie */
+    background-repeat: no-repeat; /* Evita que el degradado se repita */
+}
+
+.upload-zone {
+    background-color: #839288;
+    border: 5px solid #000000;
+    padding: 1rem;
+    display: grid;
+    place-items: center;
+    margin: auto;
+    border-radius: 20px;
+    width: 70%;
+    text-align: center;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-input {
+    display: none; /* Oculta el input de archivo por defecto */
+}
+
+.file-label {
+    background-color: #fff;
+    padding: 10px 20px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilos adicionales para el enlace */
+.upload-zone a {
+    color: rgb(0, 247, 255); /* Color del enlace */
+}
+
+.file-name {
+    font-style: bold;
+    font-size: 1rem;
+    color: #000391;
+    margin-top: 10px;
+}
+
+#soluciones {
+    display: none;
+}
+

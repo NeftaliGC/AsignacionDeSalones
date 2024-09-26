@@ -3,37 +3,79 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <link rel="stylesheet" href="css/header.css">
+        <link rel="stylesheet" href="css/customAlert.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/footer.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <title>Gestor de salones</title>
     </head>
     <body>
-        <h1>Gestión de salones</h1>
-        <p>Ingrese el excel de datos inicial:</p>
-        <form id="uploadfile">
-            <input type="file" name="file" id="file">
-            <input type="submit" value="Enviar">
-        </form>
-        <p>Si no conoce el formato de datos en excel <a href="">Descargue la plantilla</a></p>
-
-        <div id="soluciones">
-            <h2>Zona de soluciones:</h2>
-            <p>Titulo: </p>
-            <p>Numero de grupos ingresado: </p>
-    
-            <div>
-                <h3>Grupos:</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Lunes</th>
-                            <th>Martes</th>
-                            <th>Miercoles</th>
-                            <th>Jueves</th>
-                            <th>Viernes</th>
-                            <th>Sabado</th>
-                        </tr>
-                    </thead>
+        <header>
+            <div class="logoContainer">
+                <img src="img/Logo_de_la_UAEMex.svg" alt="" srcset="" class="logo">
             </div>
+            <div class="headertextContainer">
+                <h1>Gestión de salones</h1>
+                <p>Universidad Autónoma del Estado de México - Facultad de Ingenieria</p>
+            </div>
+            <div class="logoContainer">
+                <img src="img/logo-fi.png" alt="" srcset="" class="logo">
+            </div>
+        </header>
+
+        <div class="alert-overlay" id="alertOverlay"></div>
+
+        <div class="custom-alert" id="customAlert">
+            <h2 id="titulo-alert"></h2>
+            <p id="mensaje-alert"></p>
+            <button onclick="closeCustomAlert()">Cerrar</button>
         </div>
+        
+        <main>
+            <div id="uploadZone" class="upload-zone">
+                <p>Arrastre y suelte el archivo de Excel o</p>
+                <form id="uploadfile" class="upload-form">
+                    <input type="file" name="file" id="file" class="file-input" accept=".xlsx">
+                    <label for="file" class="file-label">Seleccionar archivo</label>
+                    <p id="file-name" class="file-name">Ningún archivo seleccionado</p> <!-- Aquí se mostrará el nombre del archivo -->
+                    <input type="submit" value="Enviar" class="submit-btn">
+                </form>
+                <p>Si no conoce el formato de datos en Excel, <a href="../backend/data/PlantillaDisponibilidad.xlsx">descargue la plantilla aquí</a>.</p>
+            </div>
+            
+    
+            <div id="soluciones">
+                <h2>Zona de soluciones:</h2>
+                <p>Titulo: </p>
+                <p>Numero de grupos ingresado: </p>
+        
+                <div>
+                    <h3>Grupos:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miercoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                                <th>Sabado</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footertextContainer">
+                <p>Universidad Autónoma del Estado de México</p>
+            </div>
+        </footer>
+
+        <script src="js/dragFile.js"></script>
+        <script src="js/customAlert.js"></script>
     </body>
 </html>

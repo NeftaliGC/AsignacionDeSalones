@@ -1,0 +1,44 @@
+.custom-alert {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 300px;
+    text-align: center;
+}
+
+.custom-alert h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.custom-alert button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-alert button:hover {
+    background-color: #45a049;
+}
+
+/* Overlay to darken the background */
+.alert-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}

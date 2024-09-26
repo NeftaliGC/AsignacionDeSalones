@@ -1,0 +1,33 @@
+header {
+    text-align: center;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: white;
+    padding: 0.1rem;
+}
+
+header p {
+    font-size: 1.2rem;
+}
+
+.headertextContainer {
+    align-self: center;
+}
+
+.logoContainer {
+    width: 191px; /* Ajusta este valor según tus necesidades */
+    height: 6rem;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+}
+
+main {
+    text-align: center;
+    padding: 1rem;
+    flex: 1;
+}
