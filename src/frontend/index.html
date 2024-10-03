@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/customLoading.css">
+        <link rel="stylesheet" href="css/infoContainer.css">
         <title>Gestor de salones</title>
     </head>
     <body>
@@ -32,6 +34,12 @@
             <button onclick="closeCustomAlert()">Cerrar</button>
         </div>
         
+        <div class="custom-loading" id="customLoading">
+            <div class="spinner"></div>
+            <h2>Cargando...</h2>
+            <p>Por favor espera mientras procesamos tu solicitud</p>
+        </div>
+
         <main>
             <div id="uploadZone" class="upload-zone">
                 <p>Arrastre y suelte el archivo de Excel o</p>
@@ -39,12 +47,24 @@
                     <input type="file" name="file" id="file" class="file-input" accept=".xlsx">
                     <label for="file" class="file-label">Seleccionar archivo</label>
                     <p id="file-name" class="file-name">Ningún archivo seleccionado</p> <!-- Aquí se mostrará el nombre del archivo -->
-                    <input type="submit" value="Enviar" class="submit-btn">
+                    <!-- <input type="submit" value="Enviar" class="submit-btn" > -->
                 </form>
                 <p>Si no conoce el formato de datos en Excel, <a href="../backend/data/PlantillaDisponibilidad.xlsx">descargue la plantilla aquí</a>.</p>
             </div>
             
-    
+            <div id="info" class="info-container" onclick="toggleDetailsVisibility()"">
+                <span id="toggleDetails" class="toggle-icon" onclick="toggleDetailsVisibility()">&#9654;</span>
+                <h3>Información</h3>
+                <p id="message-info"></p>
+                <div id="details" class="details-expanded">
+                    <!-- Detalles se agregarán aquí -->
+                </div>
+                <div>
+                    <button type="button" id="submitButton" class="submit-btn">Enviar información</button>
+                </div>
+            </div>
+            
+
             <div id="soluciones">
                 <h2>Zona de soluciones:</h2>
                 <p>Titulo: </p>
@@ -75,7 +95,15 @@
             </div>
         </footer>
 
+        <script src="js/uploadFIle.js"></script>
         <script src="js/dragFile.js"></script>
         <script src="js/customAlert.js"></script>
+        <script src="js/dataForm.js "></script>
+        <script src="js/infoContainer.js"></script>
+        <script src="js/customLoading.js"></script>
+
+
+        <!--Dependencias Js-->
+        <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
     </body>
 </html>

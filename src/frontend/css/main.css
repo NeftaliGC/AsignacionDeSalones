@@ -47,6 +47,7 @@ main {
 .submit-btn {
     padding: 10px 20px;
     background-color: #007bff;
+    margin: 1rem auto;
     color: #fff;
     border: none;
     border-radius: 5px;

@@ -30,11 +30,16 @@ function handleDrop(e) {
     if (files.length) {
         const file = files[0];
         if (validateFileExtension(file)) {
-        fileInput.files = files; // Asignar los archivos al input
-        updateFileNameDisplay(file); // Mostrar el nombre del archivo
+            // Asignar los archivos al input
+            fileInput.files = files;
+
+            // Forzar el evento 'change' para que se ejecute el mismo código que al seleccionar manualmente
+            const event = new Event('change');
+            fileInput.dispatchEvent(event);
+
         } else {
-            let titulo = "¡Operación Invalida!"
-            let mensaje = "solo se aceptan archivos .xlsx"
+            let titulo = "¡Operación Invalida!";
+            let mensaje = "Solo se aceptan archivos .xlsx";
             showCustomAlert(titulo, mensaje);
         }
     }
@@ -45,10 +50,10 @@ fileInput.addEventListener('change', function() {
     const file = this.files[0];
     if (file) {
         if (validateFileExtension(file)) {
-        updateFileNameDisplay(file); // Mostrar el nombre del archivo
+            updateFileNameDisplay(file); // Mostrar el nombre del archivo
         } else {
-            let titulo = "¡Operación Invalida!"
-            let mensaje = "solo se aceptan archivos .xlsx"
+            let titulo = "¡Operación Invalida!";
+            let mensaje = "Solo se aceptan archivos .xlsx";
             showCustomAlert(titulo, mensaje);
             fileInput.value = ''; // Limpiar el input si el archivo no es válido
         }
