@@ -61,7 +61,7 @@
             <section>
                 <div >
                     <div id="info" class="info-container" onclick="toggleDetailsVisibility()">
-                        <span id="toggleDetails" class="toggle-icon">&#9654;</span>
+                        <span id="toggleDetails" class="toggle-icon"><div class="triangle"></div></span>
                         <h3>Información</h3>
                         <p id="message-info"></p>
                         <div id="details" class="details-expanded">
@@ -89,15 +89,15 @@
                 </div>
                 
                 <div id="Tab1" class="tabcontent">
-                    <h3>Datos de Disponibilidad para el modelo de optimización</h3>
+                    <h3>Datos de Disponibilidad Para el Modelo de Optimización</h3>
                     
-                    <p>Nombre del modelo: </p>
-                    <p>Numero de Grupos: </p>
+                    <p id="nomod">Nombre del modelo: </p>
+                    <p id="nomgru">Numero de Grupos: </p>
                     
                     <h4>Disponibilidad Días</h4>
                     <div class="table-container">
                         <div class="table-wrapper">
-                            <h5>Disponibilidad por dia</h5>
+                            <h5>Disponibilidad por Día</h5>
                             <table border="1" id="disp-dia">
                                 <thead>
                                     <tr>

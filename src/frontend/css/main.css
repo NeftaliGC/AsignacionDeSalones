@@ -16,8 +16,8 @@ main {
 }
 
 .upload-zone {
-    background-color: #839288;
-    border: 5px solid #000000;
+    background-color: #889F49;
+    border: 5px solid #C4A425;
     padding: 1rem;
     display: grid;
     place-items: center;
@@ -48,17 +48,19 @@ main {
 
 .submit-btn {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #385F26;
     margin: 1rem auto;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
-
+.submit-btn:hover {
+    background-color: #68A43C;
+}
 /* Estilos adicionales para el enlace */
 .upload-zone a {
-    color: rgb(0, 247, 255); /* Color del enlace */
+    color: #3a2202; /* Color del enlace */
 }
 
 .file-name {

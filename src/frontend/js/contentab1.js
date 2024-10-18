@@ -5,12 +5,16 @@ import { getGlobalVariable } from "./global.js";
 const dispDia = document.getElementById("disp-dia");
 const gsDia = document.getElementById("gs-dia");
 const dispHr = document.getElementById("disp-hr");
+const nomod = document.getElementById("nomod");
+const nomgru = document.getElementById("nomgru");
 
 // Función para llenar la tabla de Disponibilidad por Día
 export function fillDispDiaTable() {
 
     let data = getGlobalVariable("data");
 
+    nomod.innerHTML += data["nombre"];
+    nomgru.innerHTML += data["data"]["Disponibilidad Dias"]["DISP"]["shape"][0];
     const dispData = data["data"]["Disponibilidad Dias"]["DISP"].data;
     
     // Limpiar el contenido de la tabla antes de llenarla

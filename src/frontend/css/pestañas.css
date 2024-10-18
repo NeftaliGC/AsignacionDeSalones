@@ -15,7 +15,7 @@
     padding: 1rem 2rem;
     border: 1px solid #ccc;
     border-bottom: none;
-    background-color: #00c3ff;
+    background-color: #385F26;
     font-weight: bold;
     font-size: large;
     cursor: pointer;
@@ -31,7 +31,7 @@
 }
 
 .tablink:hover {
-    background-color: #006eff;
+    background-color:#68A43Cff;
 }
 
 .tabcontent {
