@@ -5,12 +5,22 @@ import time
 import json
 import os
 
-# Abrir datos.json
-with open('src/backend/data/datos120.json', 'r') as file:
-    data = json.load(file)
 
 
-name = "ex120"
+def start_solution(token = None, data = None):
+
+    dat = None
+
+    if token is not None:
+        # Abrir datos.json
+        with open(f"src/backend/data/{token}.json", "r") as f:
+            dat = json.load(f)
+
+    if data is not None:
+        dat = data
+
+
+name = "Ejemplo 8"
 
 # Medir el tiempo de ejecución
 start_time_ex = time.time()  # Inicia el temporizador
@@ -75,35 +85,37 @@ end_time_solv = time.time() # Detiene el temporizador
 end_time_ex = time.time() # Detiene el temporizador
 
 
-# Mostrar resultados
-print("Estado de la solución:", model.status)
-for i in range(n):
-    for j in range(m):
-        if ASIG.value[i, j] > 0.5:
-            print(f"Grupo {i+1} tiene clase en el Día {j+1}")
+if __name__ == '__main__':
+
+    # Mostrar resultados
+    print("Estado de la solución:", model.status)
+    for i in range(n):
+        for j in range(m):
+            if ASIG.value[i, j] > 0.5:
+                print(f"Grupo {i+1} tiene clase en el Día {j+1}")
 
 
-# Imprimir matriz de solución binaria
-solution_matrix = np.zeros((n, m))
-for i in range(n):
-    for j in range(m):
-        if ASIG.value[i, j] > 0.5:
-            solution_matrix[i, j] = 1
+    # Imprimir matriz de solución binaria
+    solution_matrix = np.zeros((n, m))
+    for i in range(n):
+        for j in range(m):
+            if ASIG.value[i, j] > 0.5:
+                solution_matrix[i, j] = 1
 
-print("Matriz de solución binaria (6 x m):")
-print(solution_matrix)
+    print("Matriz de solución binaria (6 x m):")
+    print(solution_matrix)
 
-# Exportar la matriz de solución binaria a un archivo CSV
-df_solution = pd.DataFrame(solution_matrix, columns=[f'Dia {j+1}' for j in range(m)])
-df_solution.to_csv('solucion_binaria.csv', index=False)
+    # Exportar la matriz de solución binaria a un archivo CSV
+    df_solution = pd.DataFrame(solution_matrix, columns=[f'Dia {j+1}' for j in range(m)])
+    df_solution.to_csv('solucion_binaria.csv', index=False)
 
-print("La matriz de solución binaria se ha exportado a 'solucion_binaria.csv'")
+    print("La matriz de solución binaria se ha exportado a 'solucion_binaria.csv'")
 
-# Imprimir el tiempo de ejecución
-execution_time = end_time_ex - start_time_ex
-print(f"Tiempo de ejecución: {execution_time:.4f} segundos")
+    # Imprimir el tiempo de ejecución
+    execution_time = end_time_ex - start_time_ex
+    print(f"Tiempo de ejecución: {execution_time:.4f} segundos")
 
-# Imprimir el tiempo de solución
-solv_time = end_time_solv - start_time_solv
-print(f"Tiempo de solución: {solv_time:.4f} segundos")
-print(f"Valor de la función objetivo: {val:.4f}")
+    # Imprimir el tiempo de solución
+    solv_time = end_time_solv - start_time_solv
+    print(f"Tiempo de solución: {solv_time:.4f} segundos")
+    print(f"Valor de la función objetivo: {val:.4f}")

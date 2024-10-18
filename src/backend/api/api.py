@@ -1,12 +1,15 @@
 from typing import Union, Annotated
-from fastapi import FastAPI, File, UploadFile
-import os
-import shutil
-import tempfile
+from fastapi import FastAPI, Header, HTTPException
+import json
+import uuid
+import time
+from threading import Timer
 
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+sessions = {}
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,28 +23,73 @@ app.add_middleware(
 def root():
     return {"Asignacion" : "Salones"}
 
-@app.post("/files/")
-async def create_file(file: Annotated[bytes, File()]):
-    return {"file_size": len(file)}
+@app.get("/start-session/")
+def start_session():
+    session_id = str(uuid.uuid4())
+    sessions[session_id] = {'last_active': time.time(), 'input': []}
+    return {"session_id": session_id}
+
+@app.get("/get-sessions/")
+def get_sessions():
+    return sessions
+
+@app.get("/end-session/")
+def end_session(token: str = Header(None)):
+    if token not in sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+    del sessions[token]
+    return {"message": "Session ended"}
+
+@app.post("/add-data/")
+def add_data(token: str = Header(...), data: dict = None):
+    if token not in sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+    
+    # Revisar funcionalidad
+    
+    sessions[token]['input'].append(data)
+    #sessions[token]['input'][0]['data'].append(data)
+    sessions[token]['last_active'] = time.time()
+    return {"message": "Data added"}
+
+@app.post("/save-data/")
+def save_data(token: str = Header(None)):
+    if token not in sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    data = sessions[token]
+    json_data = json.dumps(data)
 
 
-@app.post("/uploadfile/")
-async def upload_file(file: UploadFile = File(...)):
-    try:
-        # Crear un archivo temporal
-        temp_dir = tempfile.mkdtemp()
-        temp_file_path = os.path.join(temp_dir, file.filename)
+    with open(f"../data/{token}.json", "w") as f:
+        f.write(str(json_data))
+        
+    return {"message": "Data saved"}
 
-        with open(temp_file_path, "wb") as temp_file:
-            data = await file.read()  # Leer todo el contenido del archivo
-            temp_file.write(data)  # Escribir los datos al archivo temporal
-            print(f"Se escribieron {len(data)} bytes al archivo {file.filename}")
+@app.get("/solution/")
+def solution(token: str = Header(None)):
+    if token not in sessions:
+        raise HTTPException(status_code=404, detail="Session not found")
+    
+    sessions[token]['last_active'] = time.time()
+    data = sessions[token]['input']
+
+    # Aquí va el código de la solución
 
 
-        # Mover el archivo temporal a un directorio permanente
-        shutil.move(temp_file_path, os.path.join("../data", file.filename))
 
+#########################################################
+# Función para limpiar sesiones inactivas
+def clear_inactive_sessions():
+    current_time = time.time()
+    inactive_sessions = [sid for sid, details in sessions.items()
+                         if current_time - details['last_active'] > 30 * 60]  # 30 minutos
 
-        return {"filename": file.filename, "path": temp_file_path}
-    except Exception as e:
-        return JSONResponse(content={"error": str(e)}, status_code=500)
+    for sid in inactive_sessions:
+        del sessions[sid]
+    
+    # Configura el temporizador para que se ejecute cada 5 minutos
+    Timer(5 * 60, clear_inactive_sessions).start()
+
+# Inicia el temporizador de limpieza
+clear_inactive_sessions()

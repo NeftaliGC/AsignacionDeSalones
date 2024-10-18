@@ -4,12 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/header.css">
-        <link rel="stylesheet" href="css/customAlert.css">
         <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/customLoading.css">
+        <link rel="stylesheet" href="css/footer.css">
         <link rel="stylesheet" href="css/infoContainer.css">
+        <link rel="stylesheet" href="css/pestañas.css">
+        <link rel="stylesheet" href="css/customAlert.css">
+        <link rel="stylesheet" href="css/customLoading.css">
         <title>Gestor de salones</title>
     </head>
     <body>
@@ -22,7 +23,7 @@
                 <p>Universidad Autónoma del Estado de México - Facultad de Ingenieria</p>
             </div>
             <div class="logoContainer">
-                <img src="img/logo-fi.png" alt="" srcset="" class="logo">
+                <img src="img/logo-fi.webp" alt="" srcset="" class="logo">
             </div>
         </header>
 
@@ -37,73 +38,210 @@
         <div class="custom-loading" id="customLoading">
             <div class="spinner"></div>
             <h2>Cargando...</h2>
-            <p>Por favor espera mientras procesamos tu solicitud</p>
+            <p>Por favor espera mientras procesamos la información</p>
         </div>
 
         <main>
-            <div id="uploadZone" class="upload-zone">
-                <p>Arrastre y suelte el archivo de Excel o</p>
-                <form id="uploadfile" class="upload-form">
-                    <input type="file" name="file" id="file" class="file-input" accept=".xlsx">
-                    <label for="file" class="file-label">Seleccionar archivo</label>
-                    <p id="file-name" class="file-name">Ningún archivo seleccionado</p> <!-- Aquí se mostrará el nombre del archivo -->
-                    <!-- <input type="submit" value="Enviar" class="submit-btn" > -->
-                </form>
-                <p>Si no conoce el formato de datos en Excel, <a href="../backend/data/PlantillaDisponibilidad.xlsx">descargue la plantilla aquí</a>.</p>
-            </div>
-            
-            <div id="info" class="info-container" onclick="toggleDetailsVisibility()"">
-                <span id="toggleDetails" class="toggle-icon" onclick="toggleDetailsVisibility()">&#9654;</span>
-                <h3>Información</h3>
-                <p id="message-info"></p>
-                <div id="details" class="details-expanded">
-                    <!-- Detalles se agregarán aquí -->
+            <section>
+                <h2></h2>
+                <div id="uploadZone" class="upload-zone">
+                    <p>Arrastre y suelte el archivo de Excel o</p>
+                    <form id="uploadfile" class="upload-form">
+                        <input type="file" name="file" id="file" class="file-input" accept=".xlsx">
+                        <label for="file" class="file-label">Seleccionar archivo</label>
+                        <p id="file-name" class="file-name">Ningún archivo seleccionado</p> <!-- Aquí se mostrará el nombre del archivo -->
+                        <!-- <input type="submit" value="Enviar" class="submit-btn" > -->
+                    </form>
+                    <p>Si no conoce el formato de datos en Excel, <a href="../backend/data/PlantillaDisponibilidad.xlsx">descargue la plantilla aquí</a>.</p>
                 </div>
-                <div>
-                    <button type="button" id="submitButton" class="submit-btn">Enviar información</button>
-                </div>
-            </div>
+            </section>
             
+            
+            
+            <section>
+                <div >
+                    <div id="info" class="info-container" onclick="toggleDetailsVisibility()">
+                        <span id="toggleDetails" class="toggle-icon">&#9654;</span>
+                        <h3>Información</h3>
+                        <p id="message-info"></p>
+                        <div id="details" class="details-expanded">
+                            <!-- Detalles se agregarán aquí -->
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" id="submitButton" class="submit-btn">Enviar información</button>
+                    </div>
+                </div>
 
-            <div id="soluciones">
-                <h2>Zona de soluciones:</h2>
-                <p>Titulo: </p>
-                <p>Numero de grupos ingresado: </p>
-        
-                <div>
-                    <h3>Grupos:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Lunes</th>
-                                <th>Martes</th>
-                                <th>Miercoles</th>
-                                <th>Jueves</th>
-                                <th>Viernes</th>
-                                <th>Sabado</th>
-                            </tr>
-                        </thead>
-                    </table>
+                <div class="tabs">
+                    <div class="tablinkcont">
+                        <button class="tablink active" onclick="openTab(event, 'Tab1')">Información de entrada</button>
+                    </div>
+                    <div class="tablinkcont">
+                        <button class="tablink" onclick="openTab(event, 'Tab2')">Resultados</button>
+                    </div>
+                    <div class="tablinkcont">
+                        <button class="tablink" onclick="openTab(event, 'Tab3')">Exportar</button>
+                    </div>
+                    <div class="tablinkcont">
+                        <button class="tablink" onclick="openTab(event, 'Tab4')">ForGeaks</button>
+                    </div>
                 </div>
+                
+                <div id="Tab1" class="tabcontent">
+                    <h3>Datos de Disponibilidad para el modelo de optimización</h3>
+                    
+                    <p>Nombre del modelo: </p>
+                    <p>Numero de Grupos: </p>
+                    
+                    <h4>Disponibilidad Días</h4>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <h5>Disponibilidad por dia</h5>
+                            <table border="1" id="disp-dia">
+                                <thead>
+                                    <tr>
+                                        <th>Grupo</th>
+                                        <th>Lunes</th>
+                                        <th>Martes</th>
+                                        <th>Miércoles</th>
+                                        <th>Jueves</th>
+                                        <th>Viernes</th>
+                                        <th>Sábado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Grupo 1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-wrapper">
+                            <h5>Sesiones por Grupo</h5>
+                            <table border="1" id="gs-dia">
+                                <thead>
+                                    <tr>
+                                        <th>Grupo/Sesión</th>
+                                        <th>1 Clase por semana</th>
+                                        <th>2 Clases por semana</th>
+                                        <th>3 Clases por semana</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Grupo 1</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                
+                    <h4>Disponibilidad Horario</h4>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+                            <h5>DISP</h5>
+                            <table border="1" id="disp-hr">
+                                <thead>
+                                    <tr>
+                                        <th>Grupo/Disp Horario</th>
+                                        <th>7:00 - 9:00</th>
+                                        <th>9:00 - 11:00</th>
+                                        <th>11:00 - 13:00</th>
+                                        <th>13:00 - 15:00</th>
+                                        <th>15:00 - 17:00</th>
+                                        <th>17:00 - 19:00</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Grupo 1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                        <td>1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h4>Disponibilidad de Salones</h4>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+
+                        </div>
+                    </div>
+
+                    <h4>Información de Grupos</h4>
+                    <div class="table-container">
+                        <div class="table-wrapper">
+
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div id="Tab2" class="tabcontent">
+                    <h3>Contenido de la Pestaña 2</h3>
+                    <p>Este es el contenido de la segunda pestaña.</p>
+                </div>
+                
+                <div id="Tab3" class="tabcontent">
+                    <h3>Contenido de la Pestaña 3</h3>
+                    <p>Este es el contenido de la tercera pestaña.</p>
+                </div>
+
+                <div id="Tab4" class="tabcontent">
+                    <h3>Información Del Solver sobre la solución</h3>
+                    <p class="code-block">
+                        ===============================================================================
+                                                            CVXPY
+                                                            v1.5.3
+                        ===============================================================================
+                    </p>
+                </div>
+                
+            </section>
+            
+            <div class="save-zone">
+                <button id="saveButton" class="submit-btn" type="button">Guardar datos</button>
             </div>
+            <noscript>
+                <p>Para que esta pagina web funcione de manera correcta, habilite JavaScript en su navegador.</p>
+            </noscript>
         </main>
-
+        
         <footer>
             <div class="footertextContainer">
                 <p>Universidad Autónoma del Estado de México</p>
             </div>
         </footer>
 
-        <script src="js/uploadFIle.js"></script>
+        <script type="module" src="js/uploadInfo.js"></script>
         <script src="js/dragFile.js"></script>
         <script src="js/customAlert.js"></script>
-        <script src="js/dataForm.js "></script>
+        <script type="module" src="js/dataForm.js "></script>
         <script src="js/infoContainer.js"></script>
         <script src="js/customLoading.js"></script>
+        <script type="module" src="js/save.js"></script>
+        <script src="js/tabs.js"></script>
+        <script type="module" src="js/contentab1.js"></script>
 
 
         <!--Dependencias Js-->
         <script lang="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+        <script type="module" src="js/connect.js"></script>
     </body>
 </html>

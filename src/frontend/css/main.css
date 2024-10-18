@@ -8,9 +8,11 @@ html, body {
 }
 
 main {
-    background: linear-gradient(to bottom, white 1%, #60866D 2%, white 99%);
+    /* background: linear-gradient(to bottom, white 1%, #60866D 2%, white 99%); */
+    
     background-size: 100% 100%; /* Asegura que el degradado cubra toda la superficie */
     background-repeat: no-repeat; /* Evita que el degradado se repita */
+    color: #000000;
 }
 
 .upload-zone {
