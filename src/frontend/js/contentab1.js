@@ -15,6 +15,7 @@ export function fillDispDiaTable() {
 
     nomod.innerHTML += data["nombre"];
     nomgru.innerHTML += data["data"]["Disponibilidad Dias"]["DISP"]["shape"][0];
+    
     const dispData = data["data"]["Disponibilidad Dias"]["DISP"].data;
     
     // Limpiar el contenido de la tabla antes de llenarla

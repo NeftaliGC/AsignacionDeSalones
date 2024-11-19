@@ -14,7 +14,9 @@ name = "ej50"
 for i in data:
     if i['id'] == name:
         n, m = i['DISP']['shape'] # n (numero de grupos), m (numero de horarios)
+        num_profesores = i['GP']['shape'][1]
         DISP = np.array(i['DISP']['data'])
+        GP = np.array(i['GP']['data'])
 
 print("INICIO")
 # Medir el tiempo de ejecución
@@ -37,6 +39,14 @@ constraints = [
     # Restricción de número de horarios (sesiones) asignados por día
     cp.sum(ASIG[i, :]) == 1 for i in range(n)
 ]
+
+# Restricción para asegurar que un profesor no esté asignado a más de un grupo por horario
+for prof in range(num_profesores):
+    grupos_profesor = [grupo for grupo in range(n) if GP[grupo, prof] == 1]  # Grupos asignados al profesor
+    for hora in range(m):
+        constraints.append(
+            cp.sum([ASIG[grupo, hora] for grupo in grupos_profesor]) <= 1
+        )
 
 # Restriccion de disponibilidad de horarios por grupo
 constraints += [
