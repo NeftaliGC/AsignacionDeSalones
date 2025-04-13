@@ -1,8 +1,12 @@
 from typing import Union, Annotated
 from fastapi import FastAPI, Header, HTTPException
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+from starlette.responses import Response
 import json
 import uuid
 import time
+from pathlib import Path
 from threading import Timer
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -20,8 +24,27 @@ app.add_middleware(
 )
 
 @app.get("/")
-def root():
-    return {"Asignacion" : "Salones"}
+async def root():
+    return FileResponse(str(frontend_path / "index.html"))
+
+# Endpoint para servir archivos CSS y JS sin caché
+@app.get("/static/{filename}")
+async def get_static(filename: str):
+    file_extension = filename.split(".")[-1]
+    media_types = {
+        "css": "text/css",
+        "js": "application/javascript"
+        
+    }
+    
+    media_type = media_types.get(file_extension, "application/octet-stream")  # Si no es CSS/JS, usa octet-stream
+    
+    try:
+        with open(f"../../frontend/{filename}", "rb") as file:
+            content = file.read()
+        return Response(content, media_type=media_type, headers={"Cache-Control": "no-store, no-cache, must-revalidate, max-age=0"})
+    except FileNotFoundError:
+        return Response("File not found", status_code=404)
 
 @app.get("/start-session/")
 def start_session():
@@ -77,7 +100,6 @@ def solution(token: str = Header(None)):
     # Aquí va el código de la solución
 
 
-
 #########################################################
 # Función para limpiar sesiones inactivas
 def clear_inactive_sessions():
@@ -93,3 +115,11 @@ def clear_inactive_sessions():
 
 # Inicia el temporizador de limpieza
 clear_inactive_sessions()
+
+
+#########################################################
+# Obtener la ruta absoluta del directorio frontend
+frontend_path = Path(__file__).resolve().parent.parent.parent / "frontend"
+
+# Montar la carpeta frontend como estática
+app.mount("/static", StaticFiles(directory=str(frontend_path)), name="frontend")
